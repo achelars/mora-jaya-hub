@@ -1,0 +1,15 @@
+{
+  "name": "mora-jaya-hub",
+  "version": "1.0.0",
+  "description": "A fashion e-commerce platform",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fashion",
+    "e-commerce"
+  ],
+  "author": "Rachel Sinaga",
+  "license": "ISC"
+}

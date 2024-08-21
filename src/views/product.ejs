@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mora Jaya Hub - Product Details</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/product-detail.css">
+    <link rel="stylesheet" href="/css/footer.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="/images/mora-jaya-logo.png" alt="Mora Jaya Logo" class="navbar-logo">
+            <span class="navbar-name">Mora Jaya</span>
+        </div>
+        <ul class="navbar-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/category">Products</a></li>
+            <li><a href="/cart">Shopping Cart</a></li>
+            <li><a href="/account">User Account</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/about">About Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Product Detail Section -->
+    <main>
+        <section class="product-detail">
+            <h1><%= product.name %></h1>
+            <div class="product-image-container">
+                <img src="/<%= product.image_url %>" alt="<%= product.name %>" class="product-detail-image">
+            </div>
+            <p><%= product.description %></p>
+            <p>Category: <%= product.category %></p>
+            <p>Fabric Material: <%= product.fabric_material %></p>
+            <p>Stock Level: <%= product.stock_level %></p>
+
+            <h2>Price: <span id="total-price" data-base-price="<%= product.base_price %>">$<%= product.base_price %></span></h2>
+
+            <div class="quantity-selector">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1">
+            </div>
+
+            <!-- Add to Cart Button -->
+            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+
+            <!-- Hidden input to pass product_id -->
+            <input type="hidden" name="product_id" value="<%= product.product_id %>">
+
+            <div class="customizations">
+                <h3>Customizations:</h3>
+                <% Object.keys(groupedCustomizations).forEach(type => { %>
+                    <div class="customization-group">
+                        <label for="<%= type %>"><%= type %>:</label>
+                        <select id="<%= type %>" class="customization-option">
+                            <option value="" data-cost="0">Select an option</option>
+                            <% groupedCustomizations[type].forEach(option => { %>
+                                <option value="<%= option.option_value %>" data-cost="<%= option.additional_cost %>">
+                                    <%= option.option_value %> (+$<%= option.additional_cost %>)
+                                </option>
+                            <% }); %>
+                        </select>
+                    </div>
+                <% }); %>
+            </div>
+        </section>
+
+        <!-- Related Products Section -->
+        <section class="related-products">
+            <h2>Related Products</h2>
+            <ul class="related-products-list">
+                <% relatedProducts.forEach(relatedProduct => { %>
+                    <li class="related-product-item">
+                        <a href="/products/<%= relatedProduct.product_id %>">
+                            <img src="/<%= relatedProduct.image_url %>" alt="<%= relatedProduct.name %>" class="related-product-image">
+                            <h3 class="related-product-name"><%= relatedProduct.name %></h3>
+                            <p class="related-product-price">$<%= relatedProduct.base_price %></p>
+                        </a>
+                    </li>
+                <% }); %>
+            </ul>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>About Us</h3>
+                <p>We are a fashion brand committed to delivering high-quality products.</p>
+            </div>
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/category">Products</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/privacy-policy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h3>Contact Us</h3>
+                <p>Email: support@morajaya.com</p>
+                <p>Phone: +123 456 7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Mora Jaya Hub | All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="/js/product.js"></script>
+</body>
+
+</html>
